@@ -1,0 +1,12 @@
+  "person_id": "051e457b-cd4d-4f7e-ae54-81db6dbca418",
+  "firstName": "Arnel",
+  "lastName": "Sarmiento",
+  "preferredName": "Nel",
+  "dateOfBirth": "2003-01-07",
+  "gender": "Male",
+  "maritalStatus": "Single",
+  "mobileNumber": "+639277697972",
+  "homeEmail": "rneljan@gmail.com",
+  "officeEmail": "aesarmiento@up.edu.ph",
+  "homeAddress": "Davao City",
+  "officeAddress": "Davao City"
