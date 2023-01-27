@@ -1,0 +1,66 @@
+service: integration-api-arnel
+
+frameworkVersion: '3'
+
+configValidationMode: error
+
+package:
+  individually: true
+
+plugins:
+  - serverless-python-requirements
+
+provider:
+  name: aws
+  runtime: python3.8
+  region: ap-southeast-1
+  stage: ${opt:stage, "dev"}
+  memorySize: 256
+  timeout: 30
+  iam:
+    role:
+      statements:
+      - Effect: Allow
+        Action:
+        - "dynamodb:*"
+        Resource: "arn:aws:dynamodb:${aws:region}:*:table/integration-person-arnel"
+
+functions:
+  app:
+    package:
+      patterns:
+        - 'src/**'
+        - '!requirements.txt'
+        - '!package.json'
+        - '!package-lock.json'
+        - '!.serverless/**'
+        - '!venv/**'
+        - '!env/**'
+        - '!envwin/**'
+        - '!node_modules/**'
+    handler: main.handler
+    environment:
+      STAGE: ${self:provider.stage}
+    events:
+      - http:
+          method: get
+          path: /
+      - http:
+          method: any
+          path: /{proxy+}
+
+resources:
+  Resources:
+    IntegrationPersonTableArnel:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: integration-person-arnel
+        AttributeDefinitions:
+          - AttributeName: person_id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: person_id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
