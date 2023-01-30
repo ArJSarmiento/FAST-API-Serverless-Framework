@@ -2,7 +2,7 @@ from pydantic import BaseModel
 from typing import Union
 
 class PersonModel(BaseModel):
-    person_id: Union[str, None] = None
+    personId: Union[str, None] = None
     firstName: str
     lastName: str
     preferredName: str

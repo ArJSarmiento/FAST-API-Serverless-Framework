@@ -1,4 +1,4 @@
-  "person_id": "051e457b-cd4d-4f7e-ae54-81db6dbca418",
+  "personId": "051e457b-cd4d-4f7e-ae54-81db6dbca418",
   "firstName": "Arnel",
   "lastName": "Sarmiento",
   "preferredName": "Nel",
@@ -12,7 +12,7 @@
   "officeAddress": "Davao City"
 
 
-  "person_id": "e0e51e457b-cd4dqweeca418",
+  "personId": "e0e51e457b-cd4dqweeca418",
   "firstName": "Raissa",
   "lastName": "Sarmiento",
   "preferredName": "Nel",

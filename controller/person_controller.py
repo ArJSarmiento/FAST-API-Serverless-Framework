@@ -11,13 +11,13 @@ router = APIRouter(
 )
 
 
-@router.get("/{person_id}",
+@router.get("/{personId}",
             summary="Retrieve a person",
             description=("Get a person from the database by their ID. "),
             response_model=PersonModel,
             )
-def retrieve_person(person_id: str):
-    return person_usecases.get_person(person_id)
+def retrieve_person(personId: str):
+    return person_usecases.get_person(personId)
 
 @router.get("/",
             summary="Retrieve all persons",
@@ -37,19 +37,19 @@ def create_person(person: PersonModel):
     return person_usecases.create_person(person)
 
 
-@router.put("/{person_id}",
+@router.put("/{personId}",
             summary="Update a person",
             description=("Update a person in the database. "),
             response_model=PersonModel,
             )
-def update_person(person_id: str, person: PersonModel):
-    return person_usecases.update_person(person_id, person)
+def update_person(personId: str, person: PersonModel):
+    return person_usecases.update_person(personId, person)
 
 
-@router.delete("/{person_id}",
+@router.delete("/{personId}",
                 summary="Delete a person",
                 description=("Delete a person from the database. "),
                 response_model=dict,
                 )
-def delete_person(person_id: str):
-    return person_usecases.delete_person(person_id)
+def delete_person(personId: str):
+    return person_usecases.delete_person(personId)
