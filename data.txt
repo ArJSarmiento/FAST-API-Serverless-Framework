@@ -24,3 +24,28 @@
   "officeEmail": "aesarmiento@up.edu.ph",
   "homeAddress": "Davao City",
   "officeAddress": "Davao City"
+
+
+{
+  "firstName": "Arnel Jan",
+  "lastName": "Sarmiento",
+  "email": "aesarmiento@up.edu.ph",
+  "phoneNumber": "+639277697972",
+  "practiceName": "ARNEL TEST PRACTICE",
+  "password": "T*zd24SHo!GdMeBh",
+  "groups": ["practice_manager", "adviser"]
+}
+
+Response
+{
+  "firstName": "Arnel Jan",
+  "lastName": "Sarmiento",
+  "email": "aesarmiento@up.edu.ph",
+  "phoneNumber": "+639277697972",
+  "username": "407fb21d-d862-4cfb-a390-7786060781d3",
+  "userConfirmed": true,
+  "groups": [
+    "practice_manager",
+    "adviser"
+  ]
+}
