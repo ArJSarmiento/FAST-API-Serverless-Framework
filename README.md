@@ -1,6 +1,6 @@
 # REST-API-Serverless-Framework
 
-Technologies:
+###  Technologies:
  - Python
  - DDD
  - Clean Architecture
@@ -11,7 +11,7 @@ Technologies:
  - RESTAPI via FASTAPI
    - https://fastapi.tiangolo.com/
  
-Deliverables:
+### Deliverables:
  - Source code in an archive (zip,7z,rar)
    - Includes all logic, scripts, deployment files
  - DB Design Access Patterns and Decision
@@ -21,7 +21,7 @@ Deliverables:
    - Should be accessible via the browser
    - Should be deployed in AWS
 
-Tasks:
+### Tasks:
  - Create a set of RESTAPIs that can be used to perform the following in AWS API Gateway:
    - Manage a Person with Basic Information (Retrieve, Create, Update, Delete)
      - First Name
@@ -51,7 +51,7 @@ Tasks:
  - Use “Serverless Framework” (https://www.serverless.com/framework/docs) for deploying all resources
    - Must deploy lambdas, api gateways, dynamodb, and other resources necessary
 
-Additional Guidelines
+### Additional Guidelines
  - AWS Resources
    - All service names and resources should start with the word "integration" as part of its name.
    - All service names and resources should end with your name. example: “robert”
@@ -65,16 +65,19 @@ Additional Guidelines
    - practiceName: <{Your Name} TEST PRACTICE>
    - password: <Password>
    - groups: ["practice_manager", "adviser"]
- - Directory Structure:
-   - core
-     \-- (core logic)
-   - usecase
-     \-- (directs communication between layers)
-   - repository
-     \-- (translates between usecase and data_store)
-   - controller
-     \-- (entry and exit points for the application)
-   - external_gateway
-     \-- (all external communication)
-   - data_store
-     \-- (Defines how data is stored)
+   
+### Directory Structure:
+```tree
+├── core
+│   ├── (core logic)
+├── usecase
+│   ├── (directs communication between layers)
+├── repository
+│   ├── (translates between usecase and data_store)
+├── controller
+│   ├── (entry and exit points for the application)
+├── external_gateway
+│   ├── (all external communication)
+├── data_store
+│   ├── (Defines how data is stored)
+```
