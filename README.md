@@ -1,9 +1,5 @@
 # REST-API-Serverless-Framework
 
-References:
- - https://test-api.advicerevolution.com.au/auth/swagger
- - https://test-api.advicerevolution.com.au/hub/swagger
-
 Technologies:
  - Python
  - DDD

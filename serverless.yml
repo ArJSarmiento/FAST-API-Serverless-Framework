@@ -3,12 +3,14 @@ service: integration-api-arnel
 frameworkVersion: '3'
 
 configValidationMode: error
+useDotenv: true
 
 package:
   individually: true
 
 plugins:
   - serverless-python-requirements
+  - serverless-dotenv-plugin
 
 provider:
   name: aws
@@ -22,7 +24,12 @@ provider:
         Action:
         - "dynamodb:*"
         Resource: "arn:aws:dynamodb:${aws:region}:*:table/integration-person-arnel"
-
+  environment:
+      APP_AUTH_BASE_URL: ${env:APP_AUTH_BASE_URL}
+      APP_ID: ${env:APP_ID}
+      APP_SECRET: ${env:APP_SECRET}
+      APP_USERNAME: ${env:APP_USERNAME}
+      APP_PASSWORD: ${env:APP_PASSWORD}
 functions:
   app:
     package:

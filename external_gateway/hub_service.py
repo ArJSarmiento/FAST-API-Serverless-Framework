@@ -1,3 +1,4 @@
+from core.config import settings
 from core.domain.hub_person.entity import HubPerson
 from .auth_service import Auth
 from fastapi import HTTPException
@@ -5,11 +6,10 @@ from core.exception.person import PersonNotFoundError
 from uuid import uuid4
 import requests
 
-
 class Hub:
     def __init__(self):
         self.auth = Auth()
-        self.base_url = 'https://test-api.advicerevolution.com.au/hub/api/v1'
+        self.base_url = settings.APP_HUB_BASE_URL
         self.people_url = f"{self.base_url}/people"
         self.access_token = ''
         self.headers = {}

@@ -1,18 +1,17 @@
-from fastapi import HTTPException
 import requests
-
+from core.config import settings
 
 class Auth:
     def __init__(self):
         self.token = None
-        self.base_url = 'https://test-api.advicerevolution.com.au'
+        self.base_url = settings.APP_AUTH_BASE_URL
         self.auth_endpoint = f"{self.base_url}/users/login"
         self.fetch_token_endpoint = f"{self.base_url}/users/fetch-token"
         self.refresh_endpoint = f"{self.base_url}/users/refresh-token"
-        self.appId = '08fefa1d-ded2-4770-9331-0af969c8ea06'
-        self.appSecret = '0Xv7OXsdOYeyb39GzDJUWsUKHQySRwQbvTo8UUWKrk5BXrl_KjSgeTosD41dDtL-I6pDsLhlYFsMivyVQDrjCjMBAwBzyGvdgsb_-i2Oa7TSjhL-jdc5Er368C1GamCR'
-        self.username = "407fb21d-d862-4cfb-a390-7786060781d3"
-        self.password = "T*zd24SHo!GdMeBh"
+        self.appId = settings.APP_ID
+        self.appSecret = settings.APP_SECRET
+        self.username = settings.APP_USERNAME
+        self.password = settings.APP_PASSWORD
         self.authCode = ''
         self.access_token = ''
         self.refreshToken = ''
