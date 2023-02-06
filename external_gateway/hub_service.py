@@ -2,7 +2,7 @@ from core.dto.person import PersonDTO
 from .auth_service import Auth
 from fastapi import HTTPException
 import requests
-
+import json
 
 class Hub:
     def __init__(self, auth=Auth()):
@@ -32,6 +32,7 @@ class Hub:
         # logic to call the get_all_PersonDTOs endpoint of the hub service
         response = requests.get(f'{self.people_url}/', headers=self.headers)
         response.raise_for_status()
+        print(response)
         if response.status_code == 200:
             return response.json()
 

@@ -1,5 +1,5 @@
 import requests
-
+import json
 # Endpoint for authentication API
 base_url = 'https://test-api.advicerevolution.com.au'
 auth_endpoint = f"{base_url}/users/login"
@@ -59,9 +59,14 @@ headers = {
 
 hub_response = requests.get(hub_endpoint, headers=headers)
 
+def write_file(Content): 
+    with open('data.txt', 'w') as outfile:
+        json.dump(Content, outfile)
+
 # Handle the response from the HUB API
 if hub_response.status_code == 200:
     data = hub_response.json()
-    print("Data received:", data)
+    print(data)
+    write_file(data)
 else:
     print("Error:", hub_response.text)

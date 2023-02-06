@@ -22,8 +22,8 @@ class TestPersonController(unittest.TestCase):
         self.client = TestClient(self.app)
         
     def test_retrieve_person(self):
-        entityId = '123'
-        self.mock_dynamodb.get_person.return_value = {'id': entityId, 'name': 'John Doe'}
-        response = self.client.get(f'/api/person/{entityId}')
+        entryId = '123'
+        self.mock_dynamodb.get_person.return_value = {'id': entryId, 'name': 'John Doe'}
+        response = self.client.get(f'/api/person/{entryId}')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), PersonOut(id=entityId, name='John Doe').dict())
+        self.assertEqual(response.json(), PersonOut(id=entryId, name='John Doe').dict())

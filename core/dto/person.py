@@ -7,7 +7,7 @@ from datetime import datetime
 
 
 class PersonDTO(BaseModel):
-    entityId: Union[str, None] = None
+    entryId: Union[str, None] = None
     firstName: StrictStr
     lastName: StrictStr
     preferredName: StrictStr

@@ -5,7 +5,7 @@ from enum import Enum
 class Person:
     def __init__(
         self,
-        entityId: str,
+        entryId: str,
         firstName: str,
         lastName: str,
         preferredName: str,
@@ -18,7 +18,7 @@ class Person:
         homeAddress: str,
         officeAddress: str
     ):
-        self.entityId = entityId
+        self.entryId = entryId
         self.firstName = firstName
         self.lastName = lastName
         self.preferredName = preferredName
@@ -32,11 +32,11 @@ class Person:
         self.officeAddress = Address(officeAddress)
     
     def __eq__(self, other:Person) -> bool:
-        return self.entityId == other.entityId if isinstance(other, Person) else False
+        return self.entryId == other.entryId if isinstance(other, Person) else False
 
     def to_dict(self) -> dict:
         return {
-            'entityId': self.entityId,
+            'entryId': self.entryId,
             'firstName': self.firstName,
             'lastName': self.lastName,
             'preferredName': self.preferredName,

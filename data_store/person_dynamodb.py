@@ -7,8 +7,8 @@ class PersonDynamoDB:
         self.dynamo_resource = boto3.resource("dynamodb")
         self.table = self.dynamo_resource.Table(table_name)
 
-    def get_item(self, entityId: str):
-        response = self.table.get_item(Key={"entityId": entityId})
+    def get_item(self, entryId: str):
+        response = self.table.get_item(Key={"entryId": entryId})
         if item_data := response.get("Item"):
             return item_data
         raise PersonNotFoundError
@@ -27,9 +27,9 @@ class PersonDynamoDB:
         self.table.put_item(Item=person_data)
         return person_data
 
-    def update_item(self, entityId: str, person_data: dict):
+    def update_item(self, entryId: str, person_data: dict):
         response = self.table.update_item(
-            Key={"entityId": entityId},
+            Key={"entryId": entryId},
             UpdateExpression="SET " +
             ",".join([f"{k}=:{k}" for k in person_data]),
             ExpressionAttributeValues={
@@ -40,8 +40,8 @@ class PersonDynamoDB:
             return item_data
         raise PersonNotFoundError
 
-    def delete_item(self, entityId: str):
-        response = self.table.delete_item(Key={"entityId": entityId})
+    def delete_item(self, entryId: str):
+        response = self.table.delete_item(Key={"entryId": entryId})
         if item_data := response.get("Attributes"):
             return item_data
         raise PersonNotFoundError

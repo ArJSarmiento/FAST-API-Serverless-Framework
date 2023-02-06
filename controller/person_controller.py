@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from core.dto.response import PersonOut
+from core.dto.response import PersonOut, HubPersonOut
 from core.dto.request import PersonIn
 from core.dto.error_response import ServerError, PersonNotFoundError
 
@@ -25,7 +25,7 @@ router = APIRouter(
 )
 
 @router.get(
-    "/{entityId}",
+    "/{entryId}",
     summary="Retrieve a person",
     description=("Get a person from the database by their ID."),
     response_model=PersonOut,
@@ -33,8 +33,8 @@ router = APIRouter(
         404: {"model": PersonNotFoundError}
     },
 )
-async def retrieve_person(entityId: str):
-    person = retrieve_usecase.get_person(entityId)
+async def retrieve_person(entryId: str):
+    person = await retrieve_usecase.get_person(entryId)
     return PersonOut.build_result(person)
 
 
@@ -42,11 +42,11 @@ async def retrieve_person(entityId: str):
     "/",
     summary="Retrieve all persons",
     description=("Get all people in the database."),
-    response_model=list[PersonOut],
+    response_model=list[HubPersonOut],
 )
 async def retrieve_people():
-    people = retrieve_usecase.get_people()
-    return [PersonOut.build_result(person) for person in people]
+    people = await retrieve_usecase.get_people()
+    return [HubPersonOut.build_result(person) for person in people]
 
 
 @router.post(
@@ -61,7 +61,7 @@ async def create_person(person: PersonIn):
 
 
 @router.patch(
-    "/{entityId}",
+    "/{entryId}",
     summary="Update a person",
     description=("Update a person in the database."),
     response_model=PersonOut,
@@ -69,13 +69,13 @@ async def create_person(person: PersonIn):
         404: {"model": PersonNotFoundError}
     },
 )
-async def update_person(entityId: str, person: PersonIn):
-    person = command_usecase.update_person(entityId, person)
+async def update_person(entryId: str, person: PersonIn):
+    person = command_usecase.update_person(entryId, person)
     return PersonOut.build_result(person)
 
 
 @router.delete(
-    "/{entityId}",
+    "/{entryId}",
     summary="Delete a person",
     description=("Delete a person from the database."),
     response_model=PersonOut,
@@ -83,6 +83,6 @@ async def update_person(entityId: str, person: PersonIn):
         404: {"model": PersonNotFoundError}
     },
 )
-async def delete_person(entityId: str):
-    person = command_usecase.delete_person(entityId)
+async def delete_person(entryId: str):
+    person = command_usecase.delete_person(entryId)
     return PersonOut.build_result(person)

@@ -9,8 +9,10 @@ class Auth:
         self.auth_endpoint = f"{self.base_url}/users/login"
         self.fetch_token_endpoint = f"{self.base_url}/users/fetch-token"
         self.refresh_endpoint = f"{self.base_url}/users/refresh-token"
-        self.appId = ''
-        self.appSecret = ''
+        self.appId = '08fefa1d-ded2-4770-9331-0af969c8ea06'
+        self.appSecret = '0Xv7OXsdOYeyb39GzDJUWsUKHQySRwQbvTo8UUWKrk5BXrl_KjSgeTosD41dDtL-I6pDsLhlYFsMivyVQDrjCjMBAwBzyGvdgsb_-i2Oa7TSjhL-jdc5Er368C1GamCR'
+        self.username =  "407fb21d-d862-4cfb-a390-7786060781d3"
+        self.password = "T*zd24SHo!GdMeBh"
         self.authCode = ''
         self.access_token = ''
         self.refreshToken = ''
@@ -18,20 +20,21 @@ class Auth:
             "Authorization": f"Bearer {self.appSecret}"
         }
 
-    async def login(self, username: str, password: str):
+    async def login(self):
         params = {
             'appId': self.appId,
             'redirectCode': True
         }
         credentials = {
-            "username": username,
-            "password": password
+            "username": self.username,
+            "password": self.password
         }
-        response = await requests.post(self.auth_endpoint,
-                                       params=params,
-                                       headers=self.headers,
-                                       json=credentials
-                                       )
+        response = requests.post(
+            self.auth_endpoint,
+            params=params,
+            headers=self.headers,
+            json=credentials
+        )
 
         response.raise_for_status()
 
@@ -41,13 +44,13 @@ class Auth:
             self.authCode = data["authCode"]
             return self.authCode
 
-    async def fetch_token(self, authCode: str):
+    async def fetch_token(self):
         fetch_credentials = {
-            "authCode": authCode,
+            "authCode": self.authCode,
             "appId": self.appId,
             "appSecret": self.appSecret
         }
-        response = await requests.post(
+        response = requests.post(
             self.fetch_token_endpoint,
             headers=self.headers,
             json=fetch_credentials

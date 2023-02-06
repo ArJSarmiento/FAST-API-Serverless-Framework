@@ -3,7 +3,7 @@ from core.exception.person import InvalidPersonError
 from uuid import uuid4
 
 test_data = {
-            'entityId': str(uuid4()),
+            'entryId': str(uuid4()),
             "firstName": "Arnel",
             "lastName": "Sarmiento",
             "preferredName": "Arnel Jan",
