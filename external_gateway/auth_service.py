@@ -1,10 +1,11 @@
 from fastapi import HTTPException
 import requests
 
+
 class Auth:
     def __init__(self):
         self.token = None
-        self.base_url='https://test-api.advicerevolution.com.au'
+        self.base_url = 'https://test-api.advicerevolution.com.au'
         self.auth_endpoint = f"{self.base_url}/users/login"
         self.fetch_token_endpoint = f"{self.base_url}/users/fetch-token"
         self.refresh_endpoint = f"{self.base_url}/users/refresh-token"
@@ -14,7 +15,7 @@ class Auth:
         self.access_token = ''
         self.refreshToken = ''
         self.headers = {
-               "Authorization": f"Bearer {self.appSecret}"
+            "Authorization": f"Bearer {self.appSecret}"
         }
 
     async def login(self, username: str, password: str):
@@ -26,11 +27,11 @@ class Auth:
             "username": username,
             "password": password
         }
-        response = await requests.post(self.auth_endpoint, 
-                         params=params,
-                         headers=self.headers,
-                         json=credentials
-                        )
+        response = await requests.post(self.auth_endpoint,
+                                       params=params,
+                                       headers=self.headers,
+                                       json=credentials
+                                       )
 
         response.raise_for_status()
 
@@ -57,7 +58,7 @@ class Auth:
             self.access_token = data["accessToken"]
             self.refresh_token = data["refreshToken"]
             return self.access_token
-        
+
     async def refresh(self):
         credentials = {
             'username': self.username,

@@ -3,6 +3,7 @@ from .auth_service import Auth
 from fastapi import HTTPException
 import requests
 
+
 class Hub:
     def __init__(self, auth=Auth()):
         self.auth = auth

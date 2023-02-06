@@ -54,10 +54,10 @@ resources:
       Properties:
         TableName: integration-person-arnel
         AttributeDefinitions:
-          - AttributeName: personId
+          - AttributeName: entityId
             AttributeType: S
         KeySchema:
-          - AttributeName: personId
+          - AttributeName: entityId
             KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1

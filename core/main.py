@@ -2,8 +2,8 @@ import os
 from fastapi import FastAPI
 from mangum import Mangum
 from fastapi.responses import HTMLResponse, JSONResponse
+from core.exception.person import PersonNotFoundError, InvalidPersonError, PersonConflictError
 from controller.person_controller import router
-from core.exception.person import PersonNotFoundError, PersonStatusError
 
 STAGE = os.environ.get('STAGE')
 root_path = f'/{STAGE}' if STAGE else '/'
@@ -11,7 +11,7 @@ app = FastAPI(
     root_path=root_path,
     title="Integration API", 
     contact={
-        "name": "ArJSarmiento",
+        "name": "Arnel Jan Sarmiento",
         "email": "rneljan@gmail.com",
     },
 )
@@ -20,15 +20,22 @@ app = FastAPI(
 @app.exception_handler(PersonNotFoundError)
 async def person_not_found_exception_handler(request, exc):
     return JSONResponse(
-        status_code=404,
-        content={"details": exc.message},
+        status_code=exc.status_code,
+        content={"message": exc.detail},
     )
 
-@app.exception_handler(PersonStatusError)
+@app.exception_handler(PersonConflictError)
+async def person_conflict_exception_handler(request, exc):
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={"message": exc.detail},
+    )
+
+@app.exception_handler(InvalidPersonError)
 async def person_status_exception_handler(request, exc):
     return JSONResponse(
-        status_code=409,
-        content={"details": exc.message},
+        status_code=exc.status_code,
+        content={"message": exc.detail},
     )
 
 # root url

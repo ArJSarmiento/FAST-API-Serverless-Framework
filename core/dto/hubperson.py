@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+
 class HubPersonDTO(BaseModel):
     entryId: str
     entryStatus: str

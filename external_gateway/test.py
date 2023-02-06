@@ -8,8 +8,8 @@ appSecret = '0Xv7OXsdOYeyb39GzDJUWsUKHQySRwQbvTo8UUWKrk5BXrl_KjSgeTosD41dDtL-I6p
 
 # Credentials for authentication API
 credentials = {
-  "username": "407fb21d-d862-4cfb-a390-7786060781d3",
-  "password": "T*zd24SHo!GdMeBh"
+    "username": "407fb21d-d862-4cfb-a390-7786060781d3",
+    "password": "T*zd24SHo!GdMeBh"
 }
 
 headers = {
@@ -19,14 +19,14 @@ headers = {
 params = {
     'appId': appId,
     'redirectCode': True
-    }
+}
 
 # Request the access token
-response = requests.post(auth_endpoint, 
+response = requests.post(auth_endpoint,
                          params=params,
                          headers=headers,
                          json=credentials
-                        )
+                         )
 
 # Extract the access token from the response
 authCode = response.json()["authCode"]
@@ -38,7 +38,7 @@ fetch_credentials = {
     "appId": appId,
     "appSecret": appSecret
 }
-    
+
 response = requests.post(
     fetch_token_endpoint,
     headers=headers,

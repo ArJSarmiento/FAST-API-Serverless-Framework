@@ -1,20 +1,24 @@
-from pydantic import BaseModel
+from pydantic import (
+    BaseModel, 
+    StrictStr
+)
 from typing import Union
 from datetime import datetime
 
+
 class PersonDTO(BaseModel):
-    personId: Union[str, None] = None
-    firstName: str
-    lastName: str
-    preferredName: str
+    entityId: Union[str, None] = None
+    firstName: StrictStr
+    lastName: StrictStr
+    preferredName: StrictStr
     dateOfBirth: str
-    gender: str
-    maritalStatus: str
+    gender: StrictStr
+    maritalStatus: StrictStr
     mobileNumber: str
-    homeEmail: str
-    officeEmail: str
-    homeAddress: str
-    officeAddress: str
+    homeEmail: StrictStr
+    officeEmail: StrictStr
+    homeAddress: StrictStr
+    officeAddress: StrictStr
 
     class Config:
         schema_extra = {
@@ -22,7 +26,7 @@ class PersonDTO(BaseModel):
                 'firstName': 'string',
                 'lastName': 'string',
                 'preferredName': 'string',
-                'dateOfBirth': datetime.now().strftime("%Y/%m/%d"),
+                'dateOfBirth': datetime.now().strftime("%Y-%m-%d"),
                 'gender': 'Male',
                 'maritalStatus': 'Single',
                 'mobileNumber': '+639123456789',
