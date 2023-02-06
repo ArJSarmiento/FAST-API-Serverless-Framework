@@ -1,5 +1,5 @@
 from pydantic import (
-    BaseModel, 
+    BaseModel,
     StrictStr
 )
 from typing import Union

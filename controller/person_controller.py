@@ -12,30 +12,31 @@ from data_store.person_dynamodb import PersonDynamoDB
 
 dynamodb = PersonDynamoDB("integration-person-arnel")
 repository = PersonRepository(dynamodb)
-retrieve_usecase = RetrieveUseCase(repository)
+retrieve_usecase = RetrieveUseCase()
 command_usecase = CommandUseCase(repository)
 
 router = APIRouter(
     prefix="/api/person",
     tags=["Person"],
     redirect_slashes=True,
-    responses = {
+    responses={
         500: {"model": ServerError},
     }
 )
+
 
 @router.get(
     "/{entryId}",
     summary="Retrieve a person",
     description=("Get a person from the database by their ID."),
-    response_model=PersonOut,
+    response_model=HubPersonOut,
     responses={
         404: {"model": PersonNotFoundError}
     },
 )
-async def retrieve_person(entryId: str):
-    person = await retrieve_usecase.get_person(entryId)
-    return PersonOut.build_result(person)
+async def retrieve_person(entryId: str, practice_id: str = None):
+    person = await retrieve_usecase.get_person(entryId, practice_id)
+    return HubPersonOut.build_result(person)
 
 
 @router.get(
@@ -56,7 +57,7 @@ async def retrieve_people():
     response_model=PersonOut,
 )
 async def create_person(person: PersonIn):
-    person = command_usecase.create_person(person)
+    person = await command_usecase.create_person(person)
     return PersonOut.build_result(person)
 
 
@@ -70,7 +71,7 @@ async def create_person(person: PersonIn):
     },
 )
 async def update_person(entryId: str, person: PersonIn):
-    person = command_usecase.update_person(entryId, person)
+    person = await command_usecase.update_person(entryId, person)
     return PersonOut.build_result(person)
 
 
@@ -83,6 +84,6 @@ async def update_person(entryId: str, person: PersonIn):
         404: {"model": PersonNotFoundError}
     },
 )
-async def delete_person(entryId: str):
-    person = command_usecase.delete_person(entryId)
+async def delete_person(entryId: str, practiceId: str = None):
+    person = await command_usecase.delete_person(entryId, practiceId)
     return PersonOut.build_result(person)

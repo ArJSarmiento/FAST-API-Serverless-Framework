@@ -12,4 +12,4 @@ class HubPersonDTO(BaseModel):
     userRoles: list[str]
     firstName: str
     lastName: str
-    practiceId:str
+    practiceId: str

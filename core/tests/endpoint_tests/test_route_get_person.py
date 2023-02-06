@@ -6,7 +6,7 @@
 # #         response = self.client.get("/api/person/")
 # #         self.assertEqual(response.status_code, 200)
 # #         self.assertEqual(response.json(), [])
-        
+
 # def test_get_person(database, client):
 #     response = client.get("/api/person/")
 #     assert response.status_code == 200

@@ -41,7 +41,7 @@ class PersonDynamoDB:
         raise PersonNotFoundError
 
     def delete_item(self, entryId: str):
-        response = self.table.delete_item(Key={"entryId": entryId})
+        response = self.table.delete_item(Key={"entryId": entryId}, ReturnValues="ALL_OLD")
         if item_data := response.get("Attributes"):
             return item_data
         raise PersonNotFoundError

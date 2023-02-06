@@ -1,6 +1,7 @@
 from data_store.person_dynamodb import PersonDynamoDB
 from core.domain.person.entitiy import Person
 
+
 class PersonRepository:
     def __init__(self, dynamodb: PersonDynamoDB):
         self.dynamodb = dynamodb
@@ -18,7 +19,7 @@ class PersonRepository:
         return self.dynamodb.create_item(person.to_dict())
 
     def update_person(self, entryId: str, person: Person) -> Person:
-        return self.dynamodb.update_item(entryId, person.to_dict())
+        return self.dynamodb.update_item(entryId, person.to_input_dict())
 
     def delete_person(self, entryId: str) -> Person:
         return self.dynamodb.delete_item(entryId)
