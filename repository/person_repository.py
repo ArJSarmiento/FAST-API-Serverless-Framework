@@ -1,7 +1,7 @@
 from data_store.person_dynamodb import PersonDynamoDB
 from core.domain.person.entitiy import Person
 
-
+# PersonRepository is a repository that retrieves, creates, updates, and deletes a person from the PersonDynamoDB
 class PersonRepository:
     def __init__(self, dynamodb: PersonDynamoDB):
         self.dynamodb = dynamodb

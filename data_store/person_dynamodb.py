@@ -1,7 +1,7 @@
 import boto3
 from core.exception.person import PersonNotFoundError
 
-
+# PersonDynamoDB is a service that retrieves, creates, updates, and deletes from the Person DynamoDB table
 class PersonDynamoDB:
     def __init__(self, table_name: str):
         self.dynamo_resource = boto3.resource("dynamodb")

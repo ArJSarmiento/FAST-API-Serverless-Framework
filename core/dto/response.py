@@ -5,7 +5,7 @@ from ..domain.hub_person.entity import HubPerson
 from .hubperson import HubPersonDTO
 from .person import PersonDTO
 
-
+# Output DTO for Person
 class PersonOut(PersonDTO):
     @classmethod
     def build_result(cls, person: Person):
@@ -21,6 +21,7 @@ class PersonOut(PersonDTO):
         }
 
 
+# Output DTO for HubPerson
 class HubPersonOut(HubPersonDTO):
     @classmethod
     def build_result(cls, person: HubPerson):

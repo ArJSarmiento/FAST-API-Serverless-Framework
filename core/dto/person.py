@@ -1,24 +1,27 @@
 from pydantic import (
     BaseModel,
-    StrictStr
+    constr,
 )
-from typing import Union
+from typing import Optional
 from datetime import datetime
 
-
+from core.domain.value_objects import Gender, MaritalStatus
+from .address import Address
+    
+# Person DTO
 class PersonDTO(BaseModel):
-    entryId: Union[str, None] = None
-    firstName: StrictStr
-    lastName: StrictStr
-    preferredName: StrictStr
+    entryId: Optional[constr(strict=True)]
+    firstName: constr(strict=True, max_length=64)
+    lastName: constr(strict=True, max_length=64)
+    preferredName: Optional[constr(strict=True, max_length=64)]
     dateOfBirth: str
-    gender: StrictStr
-    maritalStatus: StrictStr
-    mobileNumber: str
-    homeEmail: StrictStr
-    officeEmail: StrictStr
-    homeAddress: StrictStr
-    officeAddress: StrictStr
+    gender: Gender
+    maritalStatus: Optional[MaritalStatus]
+    mobileNumber: constr(strict=True, max_length=64)
+    homeEmail: constr(strict=True, max_length=64)
+    officeEmail: Optional[constr(strict=True, max_length=64)]
+    homeAddress: Address
+    officeAddress: Optional[Address]
 
     class Config:
         schema_extra = {
@@ -30,9 +33,23 @@ class PersonDTO(BaseModel):
                 'gender': 'Male',
                 'maritalStatus': 'Single',
                 'mobileNumber': '+639123456789',
-                'homeEmail': 'string',
-                'officeEmail': 'string',
-                'homeAddress': 'string',
-                'officeAddress': 'string'
+                'homeEmail': 'example@example.com',
+                'officeEmail': 'example@example.com',
+                'homeAddress': {
+                    'line1': 'string',
+                    'line2': 'string',
+                    'city': 'string',
+                    'state': 'string',
+                    'postcode': 'string',
+                    'country': 'string',
+                },
+                'officeAddress': {
+                    'line1': 'string',
+                    'line2': 'string',
+                    'city': 'string',
+                    'state': 'string',
+                    'postcode': 'string',
+                    'country': 'string',
+                },
             }
         }

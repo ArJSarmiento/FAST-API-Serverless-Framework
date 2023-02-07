@@ -3,20 +3,33 @@ from core.exception.person import InvalidPersonError
 from uuid import uuid4
 
 test_data = {
-    'entryId': str(uuid4()),
-    "firstName": "Arnel",
-    "lastName": "Sarmiento",
-    "preferredName": "Arnel Jan",
-    "dateOfBirth": "2021-12-01",
+    "entryId": str(uuid4()),
+    "firstName": "string",
+    "lastName": "string",
+    "preferredName": "string",
+    "dateOfBirth": "2023-02-07",
     "gender": "Male",
     "maritalStatus": "Single",
-    "mobileNumber": "+69123456789",
+    "mobileNumber": "+639123456789",
     "homeEmail": "example@example.com",
     "officeEmail": "example@example.com",
-    "homeAddress": "Example",
-    "officeAddress": "Example"
+    "homeAddress": {
+        "line1": "string",
+        "line2": "string",
+        "city": "string",
+        "state": "string",
+        "postcode": "string",
+        "country": "string"
+    },
+    "officeAddress": {
+        "line1": "string",
+        "line2": "string",
+        "city": "string",
+        "state": "string",
+        "postcode": "string",
+        "country": "string"
+    }
 }
-
 
 def test_create_person():
     person = Person(**test_data)
@@ -32,8 +45,6 @@ def test_missing_data():
         assert True
     else:
         assert False
-
-
 def test_invalid_date_of_birth():
     invalid_test_data = test_data.copy()
     invalid_test_data["dateOfBirth"] = "2021-12-32"
@@ -92,3 +103,22 @@ def test_invalid_email_address():
         assert True
     else:
         assert False
+
+def test_invalid_address_format():
+    invalid_test_data = test_data.copy()
+    invalid_test_data.pop('homeAddress')
+    homeAddress = {
+        "line1": "string",
+        "line2": "string",
+        "city": "string",
+        "state": "string",
+        "postcode": "string",
+    }
+    invalid_test_data['homeAddress'] = homeAddress
+    try:
+        Person(**invalid_test_data)
+    except TypeError:
+        assert True
+    else:
+        assert False
+

@@ -1,25 +1,26 @@
 from __future__ import annotations
 from ..value_objects import Gender, MaritalStatus, DateOfBirth, MobileNumber, Email, Address
-from enum import Enum
 
-
+# Entity for Person
 class Person:
     def __init__(
-        self,
-        firstName: str = '',
-        lastName: str = '',
-        preferredName: str = '',
-        dateOfBirth: str = '',
-        gender: str = '',
-        maritalStatus: str = '',
-        mobileNumber: str = '',
-        homeEmail: str = '',
-        officeEmail: str = '',
-        homeAddress: str = '',
-        officeAddress: str = '',
-        entryId: str = '',
-        **kwargs
-    ):
+            self, 
+            firstName: str, 
+            lastName: str, 
+            dateOfBirth: str, 
+            mobileNumber: str, 
+            gender: str, 
+            homeEmail: str, 
+            homeAddress: dict, 
+            preferredName: str = '', 
+            maritalStatus: str = '', 
+            officeEmail: str = '', 
+            officeAddress: dict = None, 
+            entryId: str = '', 
+            **kwargs
+        ):
+        if officeAddress is None:
+            officeAddress = {}
         self.entryId = entryId
         self.firstName = firstName
         self.lastName = lastName
@@ -30,8 +31,8 @@ class Person:
         self.mobileNumber = MobileNumber(mobileNumber)
         self.homeEmail = Email(homeEmail)
         self.officeEmail = Email(officeEmail)
-        self.homeAddress = Address(homeAddress)
-        self.officeAddress = Address(officeAddress)
+        self.homeAddress = Address(**homeAddress)
+        self.officeAddress = Address(**officeAddress)
 
     def __eq__(self, other: Person) -> bool:
         return self.entryId == other.entryId if isinstance(other, Person) else False
@@ -48,8 +49,8 @@ class Person:
             'mobileNumber': self.mobileNumber.value,
             'homeEmail': self.homeEmail.value,
             'officeEmail': self.officeEmail.value,
-            'homeAddress': self.homeAddress.value,
-            'officeAddress': self.officeAddress.value
+            'homeAddress': self.homeAddress.to_dict(),
+            'officeAddress': self.officeAddress.to_dict()
         }
 
     def to_input_dict(self) -> dict:
@@ -63,6 +64,6 @@ class Person:
             'mobileNumber': self.mobileNumber.value,
             'homeEmail': self.homeEmail.value,
             'officeEmail': self.officeEmail.value,
-            'homeAddress': self.homeAddress.value,
-            'officeAddress': self.officeAddress.value
+            'homeAddress': self.homeAddress.to_dict(),
+            'officeAddress': self.officeAddress.to_dict()
         }

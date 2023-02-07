@@ -1,6 +1,7 @@
 import requests
 from core.config import settings
 
+# Auth is a service that provides authentication for the HubService
 class Auth:
     def __init__(self):
         self.token = None

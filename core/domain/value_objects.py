@@ -1,3 +1,4 @@
+from __future__ import annotations
 import re
 from enum import Enum
 from datetime import datetime
@@ -5,24 +6,19 @@ from ..exception.person import InvalidPersonError
 from email_validator import validate_email, EmailNotValidError
 
 # Value Objects
-
-
-class Gender(Enum):
-    Male = "Male"
-    Female = "Female"
-    Other = "Other"
+class Gender(str, Enum):
+    male="Male"
+    female="Female"
+    other="Other"
 
     def __eq__(self, other):
         return self.value == other.value
 
 
-class MaritalStatus(Enum):
-    Single = "Single"
-    Married = "Married"
-    Divorced = "Divorced"
-    Widowed = "Widowed"
-    Separated = "Separated"
-    Other = "Other"
+class MaritalStatus(str, Enum):
+    single = "Single"
+    married = "Married"
+    deFacto = "De facto"
 
     def __eq__(self, other):
         return self.value == other.value
@@ -70,8 +66,34 @@ class Email:
 
 
 class Address:
-    def __init__(self, value: str):
-        self.value = value
+    def __init__(
+        self,
+        line1: str,
+        line2: str,
+        city: str,
+        state: str,
+        postcode: str,
+        country: str 
+    ):
+        try:
+            self.line1 = line1
+            self.line2 = line2
+            self.city = city
+            self.state = state
+            self.postcode = postcode
+            self.country = country
+        except:
+            raise InvalidPersonError("Invalid address format.")
 
-    def __eq__(self, other):
-        return self.value == other.value
+    def __eq__(self, other: Address):
+        return self.to_dict() == other.to_dict()
+    
+    def to_dict(self):
+        return {
+            'line1': self.line1,
+            'line2': self.line2,
+            'city': self.city,
+            'state': self.state,
+            'postcode': self.postcode,
+            'country': self.country
+        }

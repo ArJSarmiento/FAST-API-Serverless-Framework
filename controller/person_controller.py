@@ -1,3 +1,5 @@
+# PersonController is a controller that handles all requests to the /api/person endpoint
+
 from fastapi import APIRouter
 
 from core.dto.response import PersonOut, HubPersonOut
@@ -9,11 +11,15 @@ from usecase.retrieve import RetrieveUseCase
 
 from repository.person_repository import PersonRepository
 from data_store.person_dynamodb import PersonDynamoDB
+from external_gateway.hub_service import Hub
+from external_gateway.auth_service import Auth
 
+auth = Auth()
+hub = Hub(auth)
 dynamodb = PersonDynamoDB("integration-person-arnel")
 repository = PersonRepository(dynamodb)
-retrieve_usecase = RetrieveUseCase()
-command_usecase = CommandUseCase(repository)
+retrieve_usecase = RetrieveUseCase(hub)
+command_usecase = CommandUseCase(repository, hub)
 
 router = APIRouter(
     prefix="/api/person",
@@ -28,7 +34,7 @@ router = APIRouter(
 @router.get(
     "/{entryId}",
     summary="Retrieve a person",
-    description=("Get a person from the database by their ID."),
+    description="Get a person from the database by their ID.",
     response_model=HubPersonOut,
     responses={
         404: {"model": PersonNotFoundError}
@@ -42,7 +48,7 @@ async def retrieve_person(entryId: str, practice_id: str = None):
 @router.get(
     "/",
     summary="Retrieve all persons",
-    description=("Get all people in the database."),
+    description="Get all people in the database.",
     response_model=list[HubPersonOut],
 )
 async def retrieve_people():
@@ -53,7 +59,7 @@ async def retrieve_people():
 @router.post(
     "/",
     summary="Create a person",
-    description=("Create a person in the database."),
+    description="Create a person in the database.",
     response_model=PersonOut,
 )
 async def create_person(person: PersonIn):
@@ -64,7 +70,7 @@ async def create_person(person: PersonIn):
 @router.patch(
     "/{entryId}",
     summary="Update a person",
-    description=("Update a person in the database."),
+    description="Update a person in the database.",
     response_model=PersonOut,
     responses={
         404: {"model": PersonNotFoundError}
@@ -78,7 +84,7 @@ async def update_person(entryId: str, person: PersonIn):
 @router.delete(
     "/{entryId}",
     summary="Delete a person",
-    description=("Delete a person from the database."),
+    description="Delete a person from the database.",
     response_model=PersonOut,
     responses={
         404: {"model": PersonNotFoundError}
