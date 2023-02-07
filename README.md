@@ -2,7 +2,7 @@
 
 ###  Technologies:
  - Python
- - DDD
+ - Domain Driven Design
  - Clean Architecture
  - AWS
  - Serverless Framework
