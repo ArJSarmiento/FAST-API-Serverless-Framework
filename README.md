@@ -55,6 +55,10 @@ serverless deploy
 ```shell
 uvicorn core.main:app --reload
 ```
+### Test:
+```shell
+pytest -v
+```
    
 ### Directory Structure:
 ```tree
