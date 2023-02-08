@@ -41,13 +41,17 @@ py -m venv env
 # Run:
 1.
 ```shell
+npm install
+```
+2.
+```shell
 pip install -r requirements.txt
 ```
-2
+3.
 ```shell
 serverless deploy
 ```
-3.
+4.
 ```shell
 uvicorn core.main:app --reload
 ```
