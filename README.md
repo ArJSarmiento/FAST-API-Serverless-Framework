@@ -55,10 +55,44 @@ serverless deploy
 ```shell
 uvicorn core.main:app --reload
 ```
+
 ### Test:
 ```shell
 pytest -v
 ```
+
+### DynamoDB Design Access Patterns and Decision
+```shell
+{
+	'firstName': 'string',
+	'lastName': 'string',
+	'preferredName': 'string',
+	'dateOfBirth': 2021-12-31,
+	'gender': 'Male',
+	'maritalStatus': 'Single',
+	'mobileNumber': '+639123456789',
+	'homeEmail': 'example@example.com',
+	'officeEmail': 'example@example.com',
+	'homeAddress': {
+		'line1': 'string',
+		'line2': 'string',
+		'city': 'string',
+		'state': 'string',
+		'postcode': '8000',
+		'country': 'Philippines',
+	},
+	'officeAddress': {
+		'line1': 'string',
+		'line2': 'string',
+		'city': 'string',
+		'state': 'string',
+		'postcode': '8000',
+		'country': 'Philippines',
+	},
+}
+```
+One DynamoDB table is sufficient to store information about the "Person Entity". The primary access pattern used to retrieve data from this table is by matching the "entryId" attribute with the corresponding "entryId" provided by the "Hub Service". This allows for quick and efficient retrieval and mutation of specific person records based on the unique identifier provided by the Hub Service.
+
    
 ### Directory Structure:
 ```tree
