@@ -1,5 +1,4 @@
 # PersonController is a controller that handles all requests to the /api/person endpoint
-
 from fastapi import APIRouter
 
 from core.dto.response import PersonOut, HubPersonOut
@@ -11,15 +10,14 @@ from usecase.retrieve import RetrieveUseCase
 
 from repository.person_repository import PersonRepository
 from data_store.person_dynamodb import PersonDynamoDB
-from external_gateway.hub_service import Hub
 from external_gateway.auth_service import Auth
 
+
 auth = Auth()
-hub = Hub(auth)
-dynamodb = PersonDynamoDB("integration-person-arnel")
-repository = PersonRepository(dynamodb)
-retrieve_usecase = RetrieveUseCase(hub)
-command_usecase = CommandUseCase(repository, hub)
+person_dynamodb = PersonDynamoDB("integration-person-arnel")
+person_repository = PersonRepository(person_dynamodb)
+retrieve_usecase = RetrieveUseCase(auth)
+command_usecase = CommandUseCase(person_repository, auth)
 
 router = APIRouter(
     prefix="/api/person",
@@ -76,8 +74,8 @@ async def create_person(person: PersonIn):
         404: {"model": PersonNotFoundError}
     },
 )
-async def update_person(entryId: str, person: PersonIn):
-    person = await command_usecase.update_person(entryId, person)
+async def update_person(entryId: str, practiceId:str, person: PersonIn):
+    person = await command_usecase.update_person(entryId, practiceId, person)
     return PersonOut.build_result(person)
 
 

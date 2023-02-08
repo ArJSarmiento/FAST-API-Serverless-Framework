@@ -1,7 +1,7 @@
 
 from __future__ import annotations
 
-from ..domain.person.entitiy import Person
+from ..domain.entities.person import Person
 from .person import PersonDTO
 
 # Input DTO for Person

@@ -62,14 +62,16 @@ class HubPerson:
         }
 
     def to_input_dict(self) -> dict:
-        return {
-            'userGroup': self.userGroup,
-            'userRoles': self.userRoles,
-            'firstName': self.firstName,
-            'lastName': self.lastName,
-            'practiceId': self.practiceId,
-            'dateOfBirth': self.dateOfBirth,
-            'maritalStatus': self.maritalStatus,
-            'gender': self.gender,
-            'countryOfResidence': self.countryOfResidence
-        }
+        input_dict = {
+                'userGroup': self.userGroup,
+                'userRoles': self.userRoles,
+                'firstName': self.firstName,
+                'lastName': self.lastName,
+                'dateOfBirth': self.dateOfBirth,
+                'maritalStatus': self.maritalStatus,
+                'gender': self.gender,
+                'countryOfResidence': self.countryOfResidence
+            }
+        if self.practiceId != '':
+            input_dict['practiceId'] = self.practiceId
+        return input_dict

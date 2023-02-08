@@ -1,5 +1,9 @@
 from __future__ import annotations
-from ..value_objects import Gender, MaritalStatus, DateOfBirth, MobileNumber, Email, Address
+from ..value_objects import Gender, MaritalStatus, DateOfBirth, MobileNumber, Email, Address, AddressType, OwnerType, ContactType
+from .hub_address import HubAddress
+from .hub_contact import HubContact
+from .hub_person import HubPerson
+from uuid import uuid4
 
 # Entity for Person
 class Person:
@@ -67,3 +71,48 @@ class Person:
             'homeAddress': self.homeAddress.to_dict(),
             'officeAddress': self.officeAddress.to_dict()
         }
+        
+    def generate_home_address(self) -> HubAddress:
+        return HubAddress(
+            ownerId=self.entryId,
+            addressType = AddressType.RESIDENTIAL.value,
+            **self.homeAddress.to_dict()
+        )
+        
+    def generate_office_address(self) -> HubAddress:
+        return HubAddress(
+            ownerId=self.entryId,
+            addressType = AddressType.BUSINESS.value,
+            **self.officeAddress.to_dict()
+        )
+        
+    def generate_home_contact(self) -> HubContact:
+        return HubContact(
+            ownerId=self.entryId,
+            ownerType=OwnerType.PEOPLE,
+            contactType=ContactType.HOME_EMAIL.value,
+            detail=self.homeEmail.value
+        )
+        
+    def generate_office_contact(self) -> HubContact:
+        return HubContact(
+            ownerId=self.entryId,
+            ownerType=OwnerType.PEOPLE,
+            contactType=ContactType.WORK_EMAIL.value,
+            detail=self.officeEmail.value
+        )
+    
+    def generate_mobile_contact(self) -> HubContact:
+        return HubContact(
+            ownerId=self.entryId,
+            ownerType=OwnerType.PEOPLE,
+            contactType=ContactType.MOBILE_PHONE,
+            detail=self.mobileNumber.value
+        )
+        
+    def generate_hub_person(self, generatePracticeId:bool) -> HubPerson:
+        return HubPerson(
+            countryOfResidence =  self.homeAddress.country,
+            practiceId = str(uuid4()) if generatePracticeId else '',
+            **self.to_input_dict()
+        )

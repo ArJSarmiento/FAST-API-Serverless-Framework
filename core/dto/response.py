@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from ..domain.person.entitiy import Person
-from ..domain.hub_person.entity import HubPerson
+from ..domain.entities.person import Person
+from ..domain.entities.hub_person import HubPerson
 from .hubperson import HubPersonDTO
 from .person import PersonDTO
 

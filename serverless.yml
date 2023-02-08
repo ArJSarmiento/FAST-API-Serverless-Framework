@@ -26,6 +26,7 @@ provider:
         Resource: "arn:aws:dynamodb:${aws:region}:*:table/integration-person-arnel"
   environment:
       APP_AUTH_BASE_URL: ${env:APP_AUTH_BASE_URL}
+      APP_HUB_BASE_URL: ${env:APP_HUB_BASE_URL}
       APP_ID: ${env:APP_ID}
       APP_SECRET: ${env:APP_SECRET}
       APP_USERNAME: ${env:APP_USERNAME}

@@ -97,3 +97,31 @@ class Address:
             'postcode': self.postcode,
             'country': self.country
         }
+        
+class OwnerType(str, Enum):
+    PEOPLE = 'People'
+    ENTITIES = 'Entities'
+
+    def __eq__(self, other):
+        return self.value == other.value
+    
+class AddressType(str, Enum):
+    POSTAL = 'Postal'
+    RESIDENTIAL = 'Residential'
+    BUSINESS = 'Business'
+    REGISTERED = 'Registered'
+    
+    def __eq__(self, other):
+        return self.value == other.value
+
+class ContactType(str, Enum):
+    HOME_PHONE = 'Home Phone'
+    WORK_PHONE = 'Work Phone'
+    MOBILE_PHONE = 'Mobile Phone'
+    OTHER_PHONE = 'Other Phone'
+    HOME_EMAIL = 'Home Email'
+    WORK_EMAIL = 'Work Email'
+    OTHER_EMAIL = 'Other Email'
+    
+    def __eq__(self, other):
+        return self.value == other.value

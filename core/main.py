@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from mangum import Mangum
 from fastapi.responses import HTMLResponse, JSONResponse
 from core.exception.person import PersonNotFoundError, InvalidPersonError
+from core.exception.contact import ContactAlreadyExistsError, ContactNotFoundError
 from controller.person_controller import router
 
 STAGE = os.environ.get('STAGE')
@@ -30,10 +31,22 @@ async def person_status_exception_handler(request, exc):
         status_code=exc.status_code,
         content={"message": exc.detail},
     )
+    
+@app.exception_handler(ContactAlreadyExistsError)
+async def contact_already_exists_exception_handler(request, exc):
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={"message": exc.detail},
+    )
+    
+@app.exception_handler(ContactNotFoundError)
+async def contact_not_found_exception_handler(request, exc):
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={"message": exc.detail},
+    )
 
 # root url
-
-
 @app.get("/", include_in_schema=False)
 def welcome():
     html_content = """

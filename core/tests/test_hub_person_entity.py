@@ -1,6 +1,7 @@
-from core.domain.hub_person.entity import HubPerson
+from core.domain.entities.hub_person import HubPerson
 from core.exception.person import InvalidPersonError
 from uuid import uuid4
+import pytest
 
 test_data = {
     'entryId': str(uuid4()),
@@ -41,11 +42,7 @@ def test_create_hub_person_input_data():
     hub_person = HubPerson(**test_data)
     assert hub_person.to_input_dict() == test_input_data
     
-def test_create_hub_person_with_missing_data():
+def test_create_hub_person_throw_exception_with_missing_data():
     test_data.pop('firstName')
-    try:
+    with pytest.raises(TypeError):
         HubPerson(**test_data)
-    except TypeError:
-        assert True 
-    else:
-        assert False, 'Should have raised InvalidPersonError'

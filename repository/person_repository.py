@@ -1,5 +1,5 @@
 from data_store.person_dynamodb import PersonDynamoDB
-from core.domain.person.entitiy import Person
+from core.domain.entities.person import Person
 
 # PersonRepository is a repository that retrieves, creates, updates, and deletes a person from the PersonDynamoDB
 class PersonRepository:

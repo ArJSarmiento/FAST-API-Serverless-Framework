@@ -55,14 +55,16 @@ class Auth:
             headers=self.headers,
             json=fetch_credentials
         )
-        response.raise_for_status()
         data = response.json()
         if response.status_code == 200:
             self.access_token = data["accessToken"]
             self.refresh_token = data["refreshToken"]
             return self.access_token
+        elif response.status_code == 401:
+            await self.login()
+            return await self.fetch_token()
 
-    async def refresh_token(self):
+    async def get_refresh_token(self):
         credentials = {
             'username': self.username,
             'refreshToken': self.refresh_token,

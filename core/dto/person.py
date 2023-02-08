@@ -40,16 +40,16 @@ class PersonDTO(BaseModel):
                     'line2': 'string',
                     'city': 'string',
                     'state': 'string',
-                    'postcode': 'string',
-                    'country': 'string',
+                    'postcode': '8000',
+                    'country': 'Philippines',
                 },
                 'officeAddress': {
                     'line1': 'string',
                     'line2': 'string',
                     'city': 'string',
                     'state': 'string',
-                    'postcode': 'string',
-                    'country': 'string',
+                    'postcode': '8000',
+                    'country': 'Philippines',
                 },
             }
         }
