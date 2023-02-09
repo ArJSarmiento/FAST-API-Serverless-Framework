@@ -45,6 +45,9 @@ functions:
         - '!envwin/**'
         - '!node_modules/**'
     handler: core.main.handler
+    name: integration-function-arnel
+    description: Integration API
+    timeout: 29
     environment:
       STAGE: ${self:provider.stage}
     events:
